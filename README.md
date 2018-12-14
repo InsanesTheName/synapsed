@@ -1,6 +1,6 @@
 # synapsed
 
-A simple daemon written for Bash which invokes ews2case on a specified interval.
+A simple bash daemon that invokes the Synapse ews2case workflow on a specified interval.
 
 This guide assumes you have [Synapse](https://github.com/TheHive-Project/Synapse/) installed and configured as a systemd service. 
 
