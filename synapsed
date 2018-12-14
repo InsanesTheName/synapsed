@@ -3,9 +3,6 @@
 # source config variables from conf file
 source /etc/synapse/synapsed.conf
 
-# make the log directory if it doesn't exist
-mkdir -p $logdir
-
 # set the logfile
 logfile="$logdir/synapsed.log"
 
