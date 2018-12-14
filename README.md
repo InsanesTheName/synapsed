@@ -2,10 +2,11 @@
 
 synapsed is a simple daemon written for Bash which invokes ews2case on a specified interval.
 
-## Installation
-Note: this guide assumes you have [Synapse](https://github.com/TheHive-Project/Synapse/) installed and configured as a systemd service. 
-synapsed.service requires and binds to synapse.service.
+This guide assumes you have [Synapse](https://github.com/TheHive-Project/Synapse/) installed and configured as a systemd service. 
 
+synapsed.service binds to synapse.service.
+
+## Installation
 Download synapsed and claim ownership:
 ```
 sudo git clone https://github.com/InsanesTheName/synapsed /opt/synapsed
