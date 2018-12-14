@@ -1,0 +1,43 @@
+#!/bin/bash
+
+# source config variables from conf file
+source /etc/synapse/synapsed.conf
+
+# make the log directory if it doesn't exist
+mkdir -p $logdir
+
+# set the logfile
+logfile="$logdir/synapsed.log"
+
+# create it if it doesn't exist
+if [ ! -f $logfile ]
+then
+    touch $logfile
+fi
+
+# write load header to logfile
+echo "============================================================" >> $logfile
+echo "Starting synapsed at $(date +'%H:%M:%S %m-%d-%Y')" >> $logfile
+curl --silent "$host:$port/version" >> $logfile
+echo "============================================================" >> $logfile
+
+# enter loop
+while true
+do
+    # if the log file size > logsize (from conf file), empty it 
+    if (( $(stat -c %s "$logfile") > $logsize ))
+    then
+        cat /dev/null > $logfile
+    fi
+    
+    # HTTP POST, convert unread mails to case
+    result=$(curl --silent "$host:$port/ews2case") 
+    
+    # write to logfile 
+    datestring=$(date +'%Y-%m-%d %H:%M:%S') 
+    echo "$datestring | $result" >> $logfile
+
+    # sleep for sleep_interval (from conf file)
+    sleep $sleep_interval
+
+done
