@@ -9,8 +9,11 @@ logfile="$logdir/synapsed.log"
 # create it if it doesn't exist
 if [ ! -f $logfile ]
 then
-    touch $logfile
+    touch "$logfile"
 fi
+
+# wait 60s for hive, synapse to come up
+sleep 60
 
 # write load header to logfile
 echo "============================================================" >> $logfile
@@ -28,13 +31,14 @@ do
     fi
     
     # HTTP POST, convert unread mails to case
-    result=$(curl --silent "$host:$port/ews2case") 
+    result=$(curl --silent "$host:$port/ews2case")
     
-    # write to logfile 
-    datestring=$(date +'%Y-%m-%d %H:%M:%S') 
+	# write to logfile
+    datestring=$(date +'%Y-%m-%d %H:%M:%S') # | tr -d '\n')
     echo "$datestring | $result" >> $logfile
 
     # sleep for sleep_interval (from conf file)
     sleep $sleep_interval
 
 done
+
