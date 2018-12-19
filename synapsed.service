@@ -1,5 +1,6 @@
 [Unit]
 Description=synapsed
+After=synapse.service
 Requires=synapse.service
 BindsTo=synapse.service
 
